@@ -1,0 +1,27 @@
+2020-08-20 15:43:02: Se inició programa MRS
+2020-08-20 15:43:03: 10-020404053731-V4293-LUIS ANTONIO MORALES GONZALEZ- RFC: HEAE6010183C0
+2020-08-20 15:43:09: -----------------------------------------------------------------------------------------
+2020-08-20 15:43:09: Información de pre-contrato:  - 020404053731 - V4293 - LUIS ANTONIO MORALES GONZALEZ - 3321437722 - EDITH - HERNANDEZ - AGUAYO - HURON 215 22B - VALLE DEL OSO Y VALLE DE LOS ENCINOS - TLAJOMULCO DE ZUÑIGA - VALLE DE LOS ENCINOS -   -  - 45650 - HEAE6010183C0 - SUELDO -  - MC6750088
+2020-08-20 15:43:09: Activacion exitosa: MC0000001
+2020-08-20 15:43:09: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-20 15:43:09: Se cerró programa MRS
+2020-08-20 16:22:56: Se inició programa MRS
+2020-08-20 16:24:24: Se inició programa MRS
+2020-08-20 16:25:38: Se inició programa MRS
+2020-08-20 16:26:26: Se inició programa MRS
+2020-08-20 16:26:27: 13-020101000032-P4102-MARTIN CONTRERAS GUTIERREZ- RFC: AASJ100812F57
+2020-08-20 16:26:27: 15-020410003685-P3352-LAURA MARISELA CHAVEZ ROSAS- RFC: BEAM000812I97
+2020-08-20 16:26:27: 14-020405066447-P3075-ALEJANDRO LOPEZ CONTRERAS- RFC: MOHD731012CH9
+2020-08-20 16:26:45: -----------------------------------------------------------------------------------------
+2020-08-20 16:26:45: Información de pre-contrato:  - 020101000032 - P4102 - MARTIN CONTRERAS GUTIERREZ - 1122334455 - JAIME - DE ALBA - SERRANO - CALZ. LÁZARO CÁRDENAS 431  -  - GUADALAJARA - MORELOS - NINGUNA - ZVZ - 44910 - AASJ100812F57 - COMISION -  - MA3333333
+2020-08-20 16:26:45: Activacion exitosa: MA0000004
+2020-08-20 16:33:21: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-20 16:33:23: -----------------------------------------------------------------------------------------
+2020-08-20 16:33:23: Información de pre-contrato:  - 020410003685 - P3352 - LAURA MARISELA CHAVEZ ROSAS - 6565657898 - MOISES - BERNAL - ALVAREZ - CALZ. LÁZARO CÁRDENAS 432  -  - GUADALAJARA - MORELOS - NO - ZVZ - 44910 - BEAM000812I97 - COMISION -  - MA4343434
+2020-08-20 16:33:23: Activacion exitosa: MA0000004
+2020-08-20 16:33:35: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-20 16:33:36: -----------------------------------------------------------------------------------------
+2020-08-20 16:33:36: Información de pre-contrato:  - 020405066447 - P3075 - ALEJANDRO LOPEZ CONTRERAS - 3317960400 - DANIEL - MORA - HERRERA - ALDAMA  40  - PRIVADA ALDAMA - TONALA - LOMA BONITA 2A SECCION -   -  - 45405 - MOHD731012CH9 - COMISION -  - MC0876580
+2020-08-20 16:33:37: Activacion exitosa: MC0000001
+2020-08-20 16:34:34: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-20 16:34:34: Se cerró programa MRS

@@ -1,0 +1,27 @@
+2019-08-02 16:52:14: Se inició programa MRS
+2019-08-02 16:54:57: Se inició programa MRS
+2019-08-02 17:22:00: Se inició programa MRS
+2019-08-02 17:24:25: Se inició programa MRS
+2019-08-02 17:24:31: Se terminó programa MRS
+2019-08-02 17:26:08: Se inició programa MRS
+2019-08-02 17:51:28: Se inició programa MRS
+2019-08-02 17:53:03: Se inició programa MRS
+2019-08-02 17:53:18: Solicitud 020105024879 registrada en Web con mensaje 1
+2019-08-02 18:45:49: Se inició programa MRS
+2019-08-02 18:47:53: Se inició programa MRS
+2019-08-02 18:56:34: Se inició programa MRS
+2019-08-02 18:59:48: Se inició programa MRS
+2019-08-02 19:00:38: Se inició programa MRS
+2019-08-02 19:00:54: Se inició programa MRS
+2019-08-02 19:04:08: Se inició programa MRS
+2019-08-02 19:05:30: Se inició programa MRS
+2019-08-02 19:07:25: Se inició programa MRS
+2019-08-02 19:07:41: Se inició programa MRS
+2019-08-02 19:10:16: Se inició programa MRS
+2019-08-02 19:11:47: Se inició programa MRS
+2019-08-02 19:16:22: Se inició programa MRS
+2019-08-02 20:03:22: Se inició programa MRS
+2019-08-02 20:04:26: Se inició programa MRS
+2019-08-02 20:04:52: Se cerró programa MRS
+2019-08-02 20:11:43: Se inició programa MRS
+2019-08-02 20:14:55: Se inició programa MRS

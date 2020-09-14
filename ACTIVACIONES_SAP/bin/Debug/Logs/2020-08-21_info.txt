@@ -1,0 +1,12 @@
+2020-08-21 13:00:22: Se inició programa MRS
+2020-08-21 13:00:22: 16-020105056161-V4478-BERTHA ALICIA OÑATE PEREZ- RFC: PAMM900812TP6
+2020-08-21 13:00:22: 17-020105056305-V4257-JOSEFINA VELA VELA- RFC: HICM9108123J4
+2020-08-21 13:00:29: -----------------------------------------------------------------------------------------
+2020-08-21 13:00:29: Información de pre-contrato:  - 020105056161 - V4478 - BERTHA ALICIA OÑATE PEREZ - 6565656565 - MAGUIN - PATERNO - MATERNO - CALZ. LÁZARO CÁRDENAS 430  -  - GUADALAJARA - MORELOS - NO - ZVZ - 44910 - PAMM900812TP6 - SUELDO -  - MA4444444
+2020-08-21 13:01:00: Activacion exitosa: MA0000005
+2020-08-21 13:01:00: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-21 13:01:02: -----------------------------------------------------------------------------------------
+2020-08-21 13:01:02: Información de pre-contrato:  - 020105056305 - V4257 - JOSEFINA VELA VELA - 3445566778 - MARIO - HIDALGO - CASILLAS - CALZ. LÁZARO CÁRDENAS 429  -  - GUADALAJARA - MORELOS - NO - ZVZ - 44910 - HICM9108123J4 - COMISION -  - MA5555555
+2020-08-21 13:03:05: Activacion exitosa: MA0000006
+2020-08-21 13:03:05: Actualizacion en eCobro con estatus: 1 - Correcto
+2020-08-21 13:03:06: Se cerró programa MRS

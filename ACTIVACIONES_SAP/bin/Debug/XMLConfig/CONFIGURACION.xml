@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CONFIGURACION>
+  <CONEXION_SAP ServerNameSAP="192.168.0.9" 
+                TipoBaseSAP="MSSQL2012" 
+                ServidorLicenciasSAP="192.168.0.9" 
+                BaseSAP="PRUEBAS_GDL" 
+                UserSAP="sincronizador" 
+                PassSAP="1234" 
+                UserSQL="sa" 
+                PassSQL="Ent3rpr1s3*"
+                EjecucionAutomatica="Y"
+                RutaArchivosSAP="\\192.168.0.9\b1_shr\Activaciones_web"
+                RutaArchivoWEB="/var/www/html/asistencia_social/application/files"
+                RutaArchivoLocal="Temp"
+                WebServiceConsultarSolicitudes="http://35.167.149.196/asistencia_social_GDL/controlsolicitudes/getPendingSolicitudes"
+                WebServiceActualizarSolicitudes="http://35.167.149.196/asistencia_social_GDL/controlsolicitudes/setPendingSolicitudesAsSync"
+                />
+  
+  <!--VENTANA.Color representa ejecucion automática-->
+  <VENTANA Color="lightcoral" Sucursal="GUADALAJARA" IndexID_CUVV="432" CuentaLead="_SYS00000005238" />
+  <!--<VENTANA Color="lightcoral" Sucursal="TOLUCA"  IndexID_CUVV="106" CuentaLead="anySimpleType" />-->
+  <!--<VENTANA Color="lightgreen" Sucursal="CUERNAVACA"  IndexID_CUVV="" CuentaLead="anySimpleType" />-->
+</CONFIGURACION>

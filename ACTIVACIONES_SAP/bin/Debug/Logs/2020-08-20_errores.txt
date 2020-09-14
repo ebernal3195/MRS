@@ -1,0 +1,4 @@
+2020-08-20 11:43:53: Error al cargar las solicitudes en una lista: No se pudo encontrar la columna denominada Agente.
+Nombre del parámetro: columnName
+2020-08-20 13:50:22: Error al registrar la solicitud 020404053731 en SAP: 'SUELDO 2' is not a valid value for property 'U_Esquema_pago'. The valid values are: 'SUELDO' - 'SUELDO',  'COMISION' - 'COMISION'
+2020-08-20 16:24:25: Error al cargar las solicitudes en una lista: La columna 'domCobro_entreCalles' no pertenece a la tabla .

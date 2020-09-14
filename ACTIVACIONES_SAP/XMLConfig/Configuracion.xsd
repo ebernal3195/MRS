@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by ﻿Death Song (ASA) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="CONFIGURACION">
+    <xs:annotation>
+      <xs:documentation>Comment describing your root element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CONEXION_SAP">
+          <xs:complexType>
+            <xs:attribute name="ServerNameSAP"/>
+            <xs:attribute name="TipoBaseSAP"/>
+            <xs:attribute name="ServidorLicenciasSAP"/>
+            <xs:attribute name="BaseSAP"/>
+            <xs:attribute name="UserSAP"/>
+            <xs:attribute name="PassSAP"/>
+            <xs:attribute name="UserSQL"/>
+            <xs:attribute name="PassSQL"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VENTANA">
+          <xs:complexType>
+            <xs:attribute name="Color"/>
+            <xs:attribute name="Sucursal"/>
+            <xs:attribute name="IndexID_CUVV"/>
+            <xs:attribute name="CuentaLead"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

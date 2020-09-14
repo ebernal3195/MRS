@@ -1,0 +1,14 @@
+ubuntu@ec2-35-167-149-196.us-west-2.compute.amazonaws.com
+
+http://35.167.149.196/
+
+IP Publica
+
+35.167.149.196
+
+
+rootA
+ID18PAB$AM4Z0N%&
+
+ecobroAWS
+3c0br04W$_%(
