@@ -18,6 +18,10 @@ using System.Data.SqlClient;
 using SAPbobsCOM;
 using NLog.Config;
 
+/// <summary>
+/// La aplicacion MRS (Módulo de Registro de Solicitudes) 
+/// </summary>
+
 namespace MRS
 {
     public partial class FrmRegistro : Form
@@ -47,6 +51,9 @@ namespace MRS
 
         #region Metodos
 
+        /// <summary>
+        /// El programa se ejecuta en dos modos: automático y manual, el parametro de configuración se encuentra en el archivo CONFIGURACION.xml
+        /// </summary>
         private void FrmRegistro_Load(object sender, EventArgs e)
         {
             try
@@ -113,44 +120,9 @@ namespace MRS
             obtenerSolicitudes();
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-            seleccionarSolicitudes();
-            int estatusRegistro = 1;
-            string error = string.Empty;
-
-            foreach (Solicitud sol in SolicitudesARegistrar)
-            {
-                //Registrar solicitud en SAP
-                estatusRegistro = registrarSolicitud(sol.Agente, sol.NumeroSolicitud, sol.CodigoPromotor, sol.NombrePromotor, sol.dia, sol.mes, sol.year,
-                    sol.Telefono, sol.Nombre, sol.ApellidoPaterno, sol.ApellidoMaterno, sol.domCasa_Calle + " " + sol.domCasa_numExt + " " + sol.domCasa_numInt, sol.EntreCalles, sol.Municipio, sol.Colonia, sol.Observaciones, sol.NuevoIngreso,
-                     sol.domCasa_codigoPostal, sol.RFC, sol.EsquemaPago, sol.MsgError, sol.CodigoActivacion, sol.afiliado_estadoCivil, ref error);
-
-                //Si el registro fue exitoso == 1
-                
-                switch (estatusRegistro)
-                {
-                    case 1:
-                        sol.IDResultadoSAP = "1";
-                        sol.ResultadoSAP = "Correcto";
-                        ActualizarResultadoHaciaWeb(sol);
-                        break;
-                    case 2:
-                        sol.IDResultadoSAP = "0";
-                        sol.ResultadoSAP = error;
-                        ActualizarResultadoHaciaWeb(sol);
-                        break;
-                }
-            }
-        }
-
-        private void FrmRegistro_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Logger.Info("Se cerró programa MRS");
-            NLog.LogManager.Shutdown();
-            salirAddon();
-        }
-
+        /// <summary>
+        /// Obtiene la información de las solicitudes (en formato JSON) a través de un web service y las guarda en un DataTable
+        /// </summary>
         private void obtenerSolicitudes()
         {
             string WSconsultarSolicitudes;
@@ -185,6 +157,9 @@ namespace MRS
             }
         }
 
+        /// <summary>
+        /// Ingresa en una lista de objetos de tipo Solicitud las solicitudes que se encuentran en un DataTable
+        /// </summary>
         private void seleccionarSolicitudes()
         {
             try
@@ -216,16 +191,30 @@ namespace MRS
                         MiSolicitud.afiliado_estadoCivil = fila["afiliado_estadoCivil"].ToString().ToUpper();
                         // Misolicitu.ocupacion -- No se usa en SAP
                         MiSolicitud.Telefono = fila["afiliado_telefono"].ToString();
-                        // Misolicitud.tipo_domiciolo - Se tomara como DIRECCION 1
-                        List<string> ColoniaMunicipio = fila["domCobro_coloniaID"].ToString().Split('#').ToList();
-                        MiSolicitud.Colonia = ColoniaMunicipio[0].ToUpper();
-                        MiSolicitud.Municipio = ColoniaMunicipio[1].ToUpper();
-                        MiSolicitud.domCasa_Calle = fila["domCobro_Calle"].ToString().ToUpper();
-                        MiSolicitud.domCasa_numExt = fila["domCobro_numExt"].ToString().ToUpper();
-                        MiSolicitud.domCasa_numInt = fila["domCobro_numInt"].ToString().ToUpper();
-                        MiSolicitud.EntreCalles = fila["domCobro_entreClles"].ToString().ToUpper();
-                        MiSolicitud.domCasa_codigoPostal = fila["domCobro_codigoPostal"].ToString().ToUpper();
-                        // Datos de cobro
+
+                        // Domicilio de casa. Desde la aplicación móvil se valida que exista el domicilio de casa y de cobro
+                        MiSolicitud.domCasa_Calle = fila["domCasa_Calle"].ToString().ToUpper();
+                        MiSolicitud.domCasa_numExt = fila["domCasa_numExt"].ToString().ToUpper();
+                        MiSolicitud.domCasa_numInt = fila["domCasa_numInt"].ToString().ToUpper();
+                        MiSolicitud.domCasa_EntreCalles = fila["domCasa_EntreCalles"].ToString().ToUpper();
+                        MiSolicitud.domCasa_codigoPostal = fila["domCasa_codigoPostal"].ToString().ToUpper();
+
+                        //Ejemplo: "domCasa_ColoniaID": "GIRASOLES ACUEDUCTO#ZAPOPAN"
+                        List<string> ColoniaMunicipioCasa = fila["domCasa_ColoniaID"].ToString().Split('#').ToList();
+                        MiSolicitud.Colonia_casa = ColoniaMunicipioCasa[0].ToUpper();
+                        MiSolicitud.Municipio_casa = ColoniaMunicipioCasa[1].ToUpper();
+
+                        // Domicilio de cobro
+                        MiSolicitud.Calle_cobro = fila["domCobro_Calle"].ToString().ToUpper();
+                        MiSolicitud.Num_ext_cobro = fila["domCobro_numExt"].ToString().ToUpper();
+                        MiSolicitud.Num_int_cobro = fila["domCobro_numInt"].ToString().ToUpper();
+                        MiSolicitud.Entre_calles_cobro = fila["domCobro_entreClles"].ToString().ToUpper();
+                        MiSolicitud.Codigo_postal_cobro = fila["domCobro_codigoPostal"].ToString().ToUpper();
+
+                        //Ejemplo: "domCobro_coloniaID": "GIRASOLES ACUEDUCTO#ZAPOPAN"
+                        List<string> ColoniaMunicipioCobro = fila["domCobro_coloniaID"].ToString().Split('#').ToList();
+                        MiSolicitud.Colonia_cobro = ColoniaMunicipioCobro[0].ToUpper();
+                        MiSolicitud.Municipio_cobro = ColoniaMunicipioCobro[1].ToUpper();
 
 
                         string rfc = RfcFacil.RfcBuilder.ForNaturalPerson()
@@ -237,7 +226,7 @@ namespace MRS
 
                         MiSolicitud.RFC = rfc;
 
-                        // Falta mapear los datos de cobro
+                        // Falta mapear los datos de cobro ???
 
                         SolicitudesARegistrar.Add(MiSolicitud);
 
@@ -251,10 +240,101 @@ namespace MRS
             }
         }
 
+        /// <summary>
+        /// Itera en el listado de solicitudes e invoca las siguientes funciones: 1. Registrar la solicitud en SAP 2. Actualizar el resultado hacia eCobro
+        /// </summary>
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            seleccionarSolicitudes();
+            int estatusRegistro = 1;
+            string error = string.Empty;
+
+            //// INICIO PRUEBA
+            //SolicitudesARegistrar.Clear();
+
+            //Solicitud misol = new Solicitud();
+
+            //misol.solicitud_id = "1";
+            //misol.afiliado_estadoCivil = "CASADO(A)";
+            //misol.Agente = "AGENTE DE PRUEBA";
+            //misol.NumeroSolicitud = "020105001000";
+            //misol.CodigoPromotor = "P0123";
+            //misol.NombrePromotor = "PROMOTOR DE PRUEBA";
+
+            //misol.Telefono = "123456789";
+            //misol.Nombre = "NOMBRE CLIENTE";
+            //misol.ApellidoPaterno = "APELLIDO PATERNO CLIENTE";
+            //misol.ApellidoMaterno = "APELLIDO MATERNO CLIENTE";
+            //misol.Observaciones = "OBSERVACIONES";
+            //misol.NuevoIngreso = "NUEVO INGRESO";
+            //misol.CP = "12345";
+            //misol.RFC = "ZIPR690616MT0";
+            //misol.EsquemaPago = "COMISION";
+            //misol.MsgError = "";
+            //misol.CodigoActivacion = "MA0000001";
+            //misol.Archivos = "";
+            //misol.dia = 1;
+            //misol.mes = 1;
+            //misol.year = 1990;
+            //misol.IDResultadoSAP = "";
+            //misol.ResultadoSAP = "";
+            //misol.ResultadoECOBRO = "";
+
+            //misol.domCasa_codigoPostal = "12345";
+            //misol.domCasa_Calle = "CALLE DE CASA";
+            //misol.domCasa_numExt = "EXT CASA";
+            //misol.domCasa_numInt = "INT CASA";
+            //misol.domCasa_EntreCalles = "ENTRE CALLES CASA";
+            //misol.Colonia_casa = "COLONIA CASA";
+            //misol.Municipio_casa = "MUNICIPIO CASA";
+
+            //misol.Calle_cobro = "CALLE COBRO";
+            //misol.Num_ext_cobro = "EXTERIOR COBRO";
+            //misol.Num_int_cobro = "INTERIOR COBRO";
+            //misol.Entre_calles_cobro = "ENTRE CALLES COBRO";
+            //misol.Codigo_postal_cobro = "6789";
+            //misol.Colonia_cobro = "COLONIA COBRO";
+            //misol.Municipio_cobro = "MUNICIPIO COBRO";
+
+            //SolicitudesARegistrar.Add(misol);
+
+            ////FIN PRUEBA
+
+            foreach (Solicitud sol in SolicitudesARegistrar)
+            {
+                //Se conecta a SAP y agrega un socio de negocio de tipo Lead con la información de la solicitud
+                estatusRegistro = registrarSolicitud(sol.Agente, sol.NumeroSolicitud, sol.CodigoPromotor, sol.NombrePromotor, sol.dia, sol.mes, sol.year,
+                    sol.Telefono, sol.Nombre, sol.ApellidoPaterno, sol.ApellidoMaterno, sol.domCasa_Calle + " " + sol.domCasa_numExt + " " + sol.domCasa_numInt, sol.domCasa_EntreCalles, sol.Municipio_casa, sol.Colonia_casa, sol.Observaciones, sol.NuevoIngreso,
+                     sol.domCasa_codigoPostal, sol.RFC, sol.EsquemaPago, sol.MsgError, sol.CodigoActivacion, sol.afiliado_estadoCivil, ref error,
+                     sol.Calle_cobro, sol.Num_ext_cobro, sol.Num_int_cobro, sol.Entre_calles_cobro, sol.Codigo_postal_cobro, sol.Colonia_cobro, sol.Municipio_cobro
+                     );
+
+                //Registro exitoso = 1, fallido = 0
+                switch (estatusRegistro)
+                {
+                    case 1:
+                        sol.IDResultadoSAP = "1";
+                        sol.ResultadoSAP = "Correcto";
+                        ActualizarResultadoHaciaWeb(sol);
+                        break;
+                    case 2:
+                        sol.IDResultadoSAP = "0";
+                        sol.ResultadoSAP = error;
+                        ActualizarResultadoHaciaWeb(sol);
+                        break;
+                }
+            }
+        }
+       
+        /// <summary>
+        /// Se conecta a SAP y agrega un socio de negocio de tipo Lead con la información de la solicitud.
+        /// </summary>
+        /// <returns>exito = 1, error = 2 </returns>
         private int registrarSolicitud(string agente, string solicitud, string codigoAsistente, string nombreAsistente,
                                         int dia, int mes, int year, string telefono, string nombre, string apellidoP, string apellidoM,
                                         string direccion, string entreCalles, string municipio, string colonia, string observaciones, string nvoIngreso,
-                                        string codigoPostal, string rfc, string esquema, string msgError, string CodigoActivacion, string EstadoCivil, ref string error)
+                                        string codigoPostal, string rfc, string esquema, string msgError, string CodigoActivacion, string EstadoCivil, ref string error,
+                                        string Calle_cobro, string Num_ext_cobro, string Num_int_cobro, string Entre_calles_cobro, string Codigo_postal_cobro, string Colonia_cobro, string Municipio_cobro)
         {
             try
             {
@@ -266,7 +346,7 @@ namespace MRS
                 try
                 {
                     _oConnection = new Conexiones.ConexionSAP();
-                    if (_oConnection.ConectarSAP(ref msgError))
+                    if (_oConnection.ComprobarConexionReconectarSAP(ref msgError))
                     {
                         oCompany = _oConnection._oCompany;
                         nombreCompleto = nombre.TrimEnd(' ') + ' ' + apellidoP.TrimEnd(' ') + ' ' + apellidoM.TrimEnd(' ');
@@ -278,7 +358,8 @@ namespace MRS
                             SeriesLead = 927;
                         else
                             SeriesLead = 926;
-
+                        
+                        //Datos generales
                         oSocioNegocio.Series = SeriesLead;
                         oSocioNegocio.CardType = SAPbobsCOM.BoCardTypes.cLid;
                         oSocioNegocio.GroupCode = ObtenerGrupoLead();
@@ -326,8 +407,10 @@ namespace MRS
                         {
                             oSocioNegocio.UserFields.Fields.Item("U_BeneficiarioPagoRe").Value = nombreCompleto;
                         }
+
+                        //Domicilio de casa
                         oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
-                        oSocioNegocio.Addresses.AddressName = "COBRO";
+                        oSocioNegocio.Addresses.AddressName = "DIRECCION 1";
                         oSocioNegocio.Addresses.AddressName2 = telefono;
                         oSocioNegocio.Addresses.Street = direccion;
                         oSocioNegocio.Addresses.BuildingFloorRoom = entreCalles;
@@ -336,16 +419,32 @@ namespace MRS
                         oSocioNegocio.Addresses.ZipCode = codigoPostal;
                         oSocioNegocio.Addresses.State = "JAL";
 
+                        oSocioNegocio.Addresses.Add();
+
+                        //Domicilio de cobro
+                        oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
+                        oSocioNegocio.Addresses.AddressName = "COBRO";
+                        oSocioNegocio.Addresses.AddressName2 = telefono;
+                        oSocioNegocio.Addresses.Street = Calle_cobro + " " +  Num_ext_cobro + " " + Num_int_cobro;
+                        oSocioNegocio.Addresses.BuildingFloorRoom = Entre_calles_cobro;
+                        oSocioNegocio.Addresses.City = Municipio_cobro;
+                        oSocioNegocio.Addresses.Block = Colonia_cobro;
+                        oSocioNegocio.Addresses.ZipCode = Codigo_postal_cobro;
+                        oSocioNegocio.Addresses.State = "JAL";
+
                         Logger.Info("-----------------------------------------------------------------------------------------");
                         Logger.Info("Información de pre-contrato: " + agente + " - " + solicitud + " - " + codigoAsistente + " - " + nombreAsistente + " - " + telefono + " - " + nombre + " - " + apellidoP + " - " + apellidoM +
-                                          " - " + direccion + " - " + entreCalles + " - " + municipio + " - " + colonia + " - " + observaciones + " - " + nvoIngreso + " - " + codigoPostal + " - " + rfc + " - " + esquema + " - " +
-                                                msgError + " - " + CodigoActivacion);
+                                          " - " + direccion + " - " + entreCalles + " - " + municipio + " - " + colonia + " - " +
+                                          " - " + (Calle_cobro + " " + Num_ext_cobro + " " + Num_int_cobro) + " - " + Entre_calles_cobro + " - " + Municipio_cobro + " - " + Colonia_cobro + 
+                                          " - " + observaciones + " - " + nvoIngreso + " - " + codigoPostal + " - " + rfc + " - " + esquema + 
+                                          " - " + msgError + " - " + CodigoActivacion);
 
                         if (oSocioNegocio.Add() != 0)
                         {
                             msgError = "Error: " + oCompany.GetLastErrorDescription();
                             error = msgError;
                             Logger.Info("Activacion Fallida: " + oCompany.GetLastErrorDescription());
+                            Logger.Fatal("Activacion Fallida: " + oCompany.GetLastErrorDescription());
                             return 2;
                         }
                         else
@@ -361,6 +460,8 @@ namespace MRS
                 catch (Exception ex)
                 {
                     Logger.Error("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
+                    Logger.Fatal("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
+
                     error = "Solicitud: " + solicitud + ", Ex: " + ex.Message;
                     return 2;
                 }
@@ -378,7 +479,10 @@ namespace MRS
                 return 2;
             }
         }
-
+        
+        /// <summary>
+        /// Obtiene los datos del plan de acuerdo al prefijo de la solicitud. Ejemplo: 020405 es igual a 2CJ
+        /// </summary>
         private static void ObtenerDatosSolicitudValidacion(string solicitud)
         {
             SqlConnection conexion = null;
@@ -424,6 +528,9 @@ namespace MRS
             }
         }
 
+        /// <summary>
+        /// Retorna el grupo de los servicios a previsión
+        /// </summary>
         private static int ObtenerGrupoLead()
         {
             SqlConnection conexion = null;
@@ -459,6 +566,11 @@ namespace MRS
             }
         }
 
+        /// <summary>
+        /// Retorna el tipo de esquema del asistente de acuerdo a la siguiente validacion:
+        /// si el número de ayudas de sueldo supera el máximo permitido, retorna COMISION, de lo contrario SUELDO.
+        /// Ejemplo: el esquemo 15003M solo permite ingresar 2 ayudas de sueldo y las demas van a comisión
+        /// </summary>
         public static string ValidarEsquemaPago(string esquema, string codigoAsistente)
         {
             SqlConnection conexion = null;
@@ -508,6 +620,9 @@ namespace MRS
             }
         }
 
+        /// <summary>
+        /// Actualiza el resultado del registro de la solicitud hacia eCobro por medio de un Web service
+        /// </summary>
         private bool ActualizarResultadoHaciaWeb(Solicitud sol)
         {
             string result;
@@ -552,12 +667,19 @@ namespace MRS
             catch (Exception ex)
             {
                 Logger.Info("Error en la Función de actualización en Web del cliente " + ex.ToString());
+                Logger.Fatal("Error en la Función de actualización en Web del cliente " + ex.ToString());
                 sol.ResultadoECOBRO = "Error C#";
 
                 return false;
             }
         }
 
+        private void FrmRegistro_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Logger.Info("Se cerró programa MRS");
+            NLog.LogManager.Shutdown();
+            salirAddon();
+        }
 
         #endregion
 

@@ -62,3 +62,34 @@ D:\TEAM FUNDATION\ENRIQUE BERNAL\P-033 - Captura de solicitud contrato en PABS -
 D:\TEAM FUNDATION\ENRIQUE BERNAL\P-033 - Captura de solicitud contrato en PABS - Tablet, smartphone\03 - Desarrollo\P-033 MRS\MRS_02082019\ACTIVACIONES_SAP\obj\Debug\MRS.exe
 D:\TEAM FUNDATION\ENRIQUE BERNAL\P-033 - Captura de solicitud contrato en PABS - Tablet, smartphone\03 - Desarrollo\P-033 MRS\MRS_02082019\ACTIVACIONES_SAP\obj\Debug\MRS.pdb
 D:\TEAM FUNDATION\ENRIQUE BERNAL\P-033 - Captura de solicitud contrato en PABS - Tablet, smartphone\03 - Desarrollo\P-033 MRS\MRS_02082019\ACTIVACIONES_SAP\obj\Debug\MRS.csprojAssemblyReference.cache
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\NLog.config
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\XMLConfig\CONFIGURACION.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MRS.exe.config
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MRS.exe
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MRS.pdb
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\BouncyCastle.Crypto.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MailKit.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MimeKit.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MySql.Data.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\Newtonsoft.Json.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\NLog.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\NLog.MailKit.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\Renci.SshNet.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\RfcFacil.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MailKit.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\MimeKit.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\Newtonsoft.Json.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\NLog.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\NLog.MailKit.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\bin\Debug\Renci.SshNet.xml
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.csprojAssemblyReference.cache
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\Interop.SAPbobsCOM.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\Interop.SAPbouiCOM.dll
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.csproj.ResolveComReference.cache
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.FrmActivaciones.resources
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.FrmRegistro.resources
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.Properties.Resources.resources
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.csproj.GenerateResource.cache
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.csproj.CopyComplete
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.exe
+D:\ProyectosGIT\P-0005-MRS\ACTIVACIONES_SAP\obj\Debug\MRS.pdb

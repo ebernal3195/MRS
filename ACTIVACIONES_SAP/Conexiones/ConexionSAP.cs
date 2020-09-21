@@ -84,6 +84,23 @@ namespace MRS.Conexiones
             }
         }
 
+        public bool ComprobarConexionReconectarSAP(ref string msgError)
+        {
+            try
+            {
+                if (!_oCompany.Connected)
+                {
+                    ConectarSAP(ref msgError);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         #endregion
     }
 }
