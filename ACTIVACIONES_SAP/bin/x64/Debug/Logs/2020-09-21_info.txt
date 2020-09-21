@@ -1,0 +1,2 @@
+2020-09-21 11:52:12: Se inició programa MRS
+2020-09-21 11:53:36: Se cerró programa MRS

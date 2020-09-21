@@ -19,7 +19,14 @@ using SAPbobsCOM;
 using NLog.Config;
 
 /// <summary>
-/// La aplicacion MRS (Módulo de Registro de Solicitudes) 
+/// Nombre: MRS (Módulo de Registro de Solicitudes)
+/// Objetivo: Crear un socio de negocio de tipo LEAD en SAP con las solicitudes registradas en la aplicación móvil "Asistencia social"
+/// Tipo: Sincronizador(Se ejecuta cada 1 hora desde 192.168.0.21)
+/// Lenguaje: C#
+/// Versión: 1.0
+/// Desarrollado por: Enrique Bernal, Jaime Rodríguez
+/// Abreviaturas: SN(Socio de negocio)
+/// Correo de incidencias: mrspabs @gmail.com
 /// </summary>
 
 namespace MRS

@@ -8,7 +8,7 @@
                 PassSAP="1234" 
                 UserSQL="sa" 
                 PassSQL="Ent3rpr1s3*"
-                EjecucionAutomatica="Y"
+                EjecucionAutomatica="N"
                 RutaArchivosSAP="\\192.168.0.9\b1_shr\Activaciones_web"
                 RutaArchivoWEB="/var/www/html/asistencia_social/application/files"
                 RutaArchivoLocal="Temp"
