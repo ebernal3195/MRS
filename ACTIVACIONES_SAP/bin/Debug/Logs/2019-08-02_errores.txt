@@ -1,2 +1,0 @@
-2019-08-02 17:51:57: Fallo en registro en Web de solicitud 020105024879
-2019-08-02 18:58:44: Error al descargar archivo /var/www/html/asistencia_social/application/files/ de la solicitud 020408004040: Failure

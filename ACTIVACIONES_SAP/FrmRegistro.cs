@@ -343,143 +343,138 @@ namespace MRS
                                         string codigoPostal, string rfc, string esquema, string msgError, string CodigoActivacion, string EstadoCivil, ref string error,
                                         string Calle_cobro, string Num_ext_cobro, string Num_int_cobro, string Entre_calles_cobro, string Codigo_postal_cobro, string Colonia_cobro, string Municipio_cobro)
         {
+            SAPbobsCOM.BusinessPartners oSocioNegocio = null;
+            string cardCodeGenerate = null;
+            string nombreCompleto = null;
+
             try
             {
-                SAPbobsCOM.BusinessPartners oSocioNegocio = null;
-                string cardCodeGenerate = null;
-                string nombreCompleto = null;
-
                 Conexiones.ConexionSAP _oConnection = new Conexiones.ConexionSAP();
 
-                try
+                _oConnection = new Conexiones.ConexionSAP();
+                if (_oConnection.ConectarSAP(ref msgError))
                 {
-                    _oConnection = new Conexiones.ConexionSAP();
-                    if (_oConnection.ConectarSAP(ref msgError))
-                    {
-                        oCompany = _oConnection._oCompany;
-                        nombreCompleto = nombre.TrimEnd(' ') + ' ' + apellidoP.TrimEnd(' ') + ' ' + apellidoM.TrimEnd(' ');
-                        oSocioNegocio = oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
-                        ObtenerDatosSolicitudValidacion(solicitud);
-                        int SeriesLead = 0;
-                        string empresa = CodigoActivacion.Substring(1, 1);
-                        if (empresa.Equals("C"))
-                            SeriesLead = 927;
-                        else
-                            SeriesLead = 926;
+                    oCompany = _oConnection._oCompany;
+                    nombreCompleto = nombre.TrimEnd(' ') + ' ' + apellidoP.TrimEnd(' ') + ' ' + apellidoM.TrimEnd(' ');
+                    oSocioNegocio = oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
+                    ObtenerDatosSolicitudValidacion(solicitud);
+                    
+                    //Asignacion de empresa
+                    int SeriesLead = 0;
+                    string empresa = CodigoActivacion.Substring(1, 1);
+                    if (empresa.Equals("C"))
+                        SeriesLead = 927;
+                    else
+                        SeriesLead = 926;
                         
-                        //Datos generales
-                        oSocioNegocio.Series = SeriesLead;
-                        oSocioNegocio.CardType = SAPbobsCOM.BoCardTypes.cLid;
-                        oSocioNegocio.GroupCode = ObtenerGrupoLead();
-                        oSocioNegocio.CardName = nombreCompleto;
-                        oSocioNegocio.FederalTaxID = rfc;
-                        oSocioNegocio.DebitorAccount = Extensor.Configuracion.VENTANA.CuentaLead;
-                        oSocioNegocio.UserFields.Fields.Item("U_EstadoCivil").Value = EstadoCivil;
-                        oSocioNegocio.UserFields.Fields.Item("U_QCapturaContrato").Value = "AppM - " + codigoAsistente;
-                        oSocioNegocio.UserFields.Fields.Item("U_SolicitudInt").Value = solicitud;
-                        oSocioNegocio.UserFields.Fields.Item("U_CodigoPromotor").Value = codigoAsistente;
-                        oSocioNegocio.UserFields.Fields.Item("U_NomProm").Value = nombreAsistente;
-                        oSocioNegocio.UserFields.Fields.Item("U_Dia").Value = dia.ToString();
-                        oSocioNegocio.UserFields.Fields.Item("U_Mes").Value = mes.ToString();
-                        oSocioNegocio.UserFields.Fields.Item("U_Year").Value = year.ToString();
-                        oSocioNegocio.UserFields.Fields.Item("U_ComentarioContrato").Value = observaciones;
-                        oSocioNegocio.UserFields.Fields.Item("U_PersonaNvoIngreso").Value = nvoIngreso;
-                        oSocioNegocio.UserFields.Fields.Item("U_NumArt_").Value = DatosSolicitud.ElementAt(0).plan;
-                        oSocioNegocio.UserFields.Fields.Item("U_Dsciption").Value = DatosSolicitud.ElementAt(0).nombrePlan;
-                        oSocioNegocio.UserFields.Fields.Item("U_PrefijoPlan").Value = DatosSolicitud.ElementAt(0).prefijoPlan;
-                        oSocioNegocio.UserFields.Fields.Item("U_FechaCaptura").Value = DateTime.Now.ToShortDateString();
-                        oSocioNegocio.UserFields.Fields.Item("U_HoraCaptura").Value = DateTime.Now.ToString("HH:mm:ss");
+                    //Datos generales
+                    oSocioNegocio.Series = SeriesLead;
+                    oSocioNegocio.CardType = SAPbobsCOM.BoCardTypes.cLid;
+                    oSocioNegocio.GroupCode = ObtenerGrupoLead();
+                    oSocioNegocio.CardName = nombreCompleto;
+                    oSocioNegocio.FederalTaxID = rfc;
+                    oSocioNegocio.DebitorAccount = Extensor.Configuracion.VENTANA.CuentaLead;
+                    oSocioNegocio.UserFields.Fields.Item("U_EstadoCivil").Value = EstadoCivil;
+                    oSocioNegocio.UserFields.Fields.Item("U_QCapturaContrato").Value = "AppM - " + codigoAsistente;
+                    oSocioNegocio.UserFields.Fields.Item("U_SolicitudInt").Value = solicitud;
+                    oSocioNegocio.UserFields.Fields.Item("U_CodigoPromotor").Value = codigoAsistente;
+                    oSocioNegocio.UserFields.Fields.Item("U_NomProm").Value = nombreAsistente;
+                    oSocioNegocio.UserFields.Fields.Item("U_Dia").Value = dia.ToString();
+                    oSocioNegocio.UserFields.Fields.Item("U_Mes").Value = mes.ToString();
+                    oSocioNegocio.UserFields.Fields.Item("U_Year").Value = year.ToString();
+                    oSocioNegocio.UserFields.Fields.Item("U_ComentarioContrato").Value = observaciones;
+                    oSocioNegocio.UserFields.Fields.Item("U_PersonaNvoIngreso").Value = nvoIngreso;
+                    oSocioNegocio.UserFields.Fields.Item("U_NumArt_").Value = DatosSolicitud.ElementAt(0).plan;
+                    oSocioNegocio.UserFields.Fields.Item("U_Dsciption").Value = DatosSolicitud.ElementAt(0).nombrePlan;
+                    oSocioNegocio.UserFields.Fields.Item("U_PrefijoPlan").Value = DatosSolicitud.ElementAt(0).prefijoPlan;
+                    oSocioNegocio.UserFields.Fields.Item("U_FechaCaptura").Value = DateTime.Now.ToShortDateString();
+                    oSocioNegocio.UserFields.Fields.Item("U_HoraCaptura").Value = DateTime.Now.ToString("HH:mm:ss");
 
-                        string esquemaValidacion = string.Empty;
+                    string esquemaValidacion = string.Empty;
 
-                        if (esquema.Contains("SUELDO"))
-                        {
-                            esquemaValidacion = Extensor.ValidarEsquemaPago(esquema, codigoAsistente);
-                            esquema = esquemaValidacion;
-                        }
-                        else
-                        {
-                            esquemaValidacion = "COMISION";
-                            esquema = esquemaValidacion;
-                        }
+                    if (esquema.Contains("SUELDO"))
+                    {
+                        esquemaValidacion = Extensor.ValidarEsquemaPago(esquema, codigoAsistente);
+                        esquema = esquemaValidacion;
+                    }
+                    else
+                    {
+                        esquemaValidacion = "COMISION";
+                        esquema = esquemaValidacion;
+                    }
 
-                        oSocioNegocio.UserFields.Fields.Item("U_Esquema_pago").Value = esquema;
-                        oSocioNegocio.UserFields.Fields.Item("U_Test").Value = "Y";
-                        oSocioNegocio.UserFields.Fields.Item("U_CodigoActivacion").Value = CodigoActivacion;
+                    oSocioNegocio.UserFields.Fields.Item("U_Esquema_pago").Value = esquema;
+                    oSocioNegocio.UserFields.Fields.Item("U_Test").Value = "Y";
+                    oSocioNegocio.UserFields.Fields.Item("U_CodigoActivacion").Value = CodigoActivacion;
 
-                        if (nombreCompleto.Length > 70)
-                        {
-                            oSocioNegocio.UserFields.Fields.Item("U_BeneficiarioPagoRe").Value = nombreCompleto.ToString().Substring(1, 70);
-                        }
-                        else
-                        {
-                            oSocioNegocio.UserFields.Fields.Item("U_BeneficiarioPagoRe").Value = nombreCompleto;
-                        }
+                    if (nombreCompleto.Length > 70)
+                    {
+                        oSocioNegocio.UserFields.Fields.Item("U_BeneficiarioPagoRe").Value = nombreCompleto.ToString().Substring(1, 70);
+                    }
+                    else
+                    {
+                        oSocioNegocio.UserFields.Fields.Item("U_BeneficiarioPagoRe").Value = nombreCompleto;
+                    }
 
-                        //Domicilio de casa
-                        oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
-                        oSocioNegocio.Addresses.AddressName = "DIRECCION 1";
-                        oSocioNegocio.Addresses.AddressName2 = telefono;
-                        oSocioNegocio.Addresses.Street = direccion;
-                        oSocioNegocio.Addresses.BuildingFloorRoom = entreCalles;
-                        oSocioNegocio.Addresses.City = municipio;
-                        oSocioNegocio.Addresses.Block = colonia;
-                        oSocioNegocio.Addresses.ZipCode = codigoPostal;
-                        oSocioNegocio.Addresses.State = "JAL";
+                    //Domicilio de casa
+                    oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
+                    oSocioNegocio.Addresses.AddressName = "DIRECCION 1";
+                    oSocioNegocio.Addresses.AddressName2 = telefono;
+                    oSocioNegocio.Addresses.Street = direccion;
+                    oSocioNegocio.Addresses.BuildingFloorRoom = entreCalles;
+                    oSocioNegocio.Addresses.City = municipio;
+                    oSocioNegocio.Addresses.Block = colonia;
+                    oSocioNegocio.Addresses.ZipCode = codigoPostal;
+                    oSocioNegocio.Addresses.State = "JAL";
 
-                        oSocioNegocio.Addresses.Add();
+                    oSocioNegocio.Addresses.Add();
 
-                        //Domicilio de cobro
-                        oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
-                        oSocioNegocio.Addresses.AddressName = "COBRO";
-                        oSocioNegocio.Addresses.AddressName2 = telefono;
-                        oSocioNegocio.Addresses.Street = Calle_cobro + " " +  Num_ext_cobro + " " + Num_int_cobro;
-                        oSocioNegocio.Addresses.BuildingFloorRoom = Entre_calles_cobro;
-                        oSocioNegocio.Addresses.City = Municipio_cobro;
-                        oSocioNegocio.Addresses.Block = Colonia_cobro;
-                        oSocioNegocio.Addresses.ZipCode = Codigo_postal_cobro;
-                        oSocioNegocio.Addresses.State = "JAL";
+                    //Domicilio de cobro
+                    oSocioNegocio.Addresses.AddressType = SAPbobsCOM.BoAddressType.bo_BillTo;
+                    oSocioNegocio.Addresses.AddressName = "COBRO";
+                    oSocioNegocio.Addresses.AddressName2 = telefono;
+                    oSocioNegocio.Addresses.Street = Calle_cobro + " " +  Num_ext_cobro + " " + Num_int_cobro;
+                    oSocioNegocio.Addresses.BuildingFloorRoom = Entre_calles_cobro;
+                    oSocioNegocio.Addresses.City = Municipio_cobro;
+                    oSocioNegocio.Addresses.Block = Colonia_cobro;
+                    oSocioNegocio.Addresses.ZipCode = Codigo_postal_cobro;
+                    oSocioNegocio.Addresses.State = "JAL";
 
-                        Logger.Info("-----------------------------------------------------------------------------------------");
-                        Logger.Info("Información de pre-contrato: " + agente + " - " + solicitud + " - " + codigoAsistente + " - " + nombreAsistente + " - " + telefono + " - " + nombre + " - " + apellidoP + " - " + apellidoM +
-                                          " - " + direccion + " - " + entreCalles + " - " + municipio + " - " + colonia + " - " +
-                                          " - " + (Calle_cobro + " " + Num_ext_cobro + " " + Num_int_cobro) + " - " + Entre_calles_cobro + " - " + Municipio_cobro + " - " + Colonia_cobro + 
-                                          " - " + observaciones + " - " + nvoIngreso + " - " + codigoPostal + " - " + rfc + " - " + esquema + 
-                                          " - " + msgError + " - " + CodigoActivacion);
+                    Logger.Info("-----------------------------------------------------------------------------------------");
+                    Logger.Info("Información de pre-contrato: " + agente + " - " + solicitud + " - " + codigoAsistente + " - " + nombreAsistente + " - " + telefono + " - " + nombre + " - " + apellidoP + " - " + apellidoM +
+                                        " - " + direccion + " - " + entreCalles + " - " + municipio + " - " + colonia + " - " +
+                                        " - " + (Calle_cobro + " " + Num_ext_cobro + " " + Num_int_cobro) + " - " + Entre_calles_cobro + " - " + Municipio_cobro + " - " + Colonia_cobro + 
+                                        " - " + observaciones + " - " + nvoIngreso + " - " + codigoPostal + " - " + rfc + " - " + esquema + 
+                                        " - " + msgError + " - " + CodigoActivacion);
 
-                        if (oSocioNegocio.Add() != 0)
-                        {
-                            msgError = "Error: " + oCompany.GetLastErrorDescription();
-                            error = msgError;
-                            Logger.Info("Activacion Fallida: " + oCompany.GetLastErrorDescription());
-                            Logger.Fatal("Activacion Fallida: " + oCompany.GetLastErrorDescription());
-                            return 2;
-                        }
-                        else
-                        {
-                            oCompany.GetNewObjectCode(out cardCodeGenerate);
-                            Logger.Info("Activacion exitosa: " + cardCodeGenerate);
-                            msgError = string.Empty;
-                            error = msgError;
-                            return 1;
-                        }
+                    if (oSocioNegocio.Add() != 0)
+                    {
+                        msgError = "Error: " + oCompany.GetLastErrorDescription();
+                        error = msgError;
+                        Logger.Info("Activacion Fallida: " + oCompany.GetLastErrorDescription());
+                        Logger.Fatal("Activacion Fallida: " + oCompany.GetLastErrorDescription());
+                        return 2;
+                    }
+                    else
+                    {
+                        oCompany.GetNewObjectCode(out cardCodeGenerate);
+                        Logger.Info("Activacion exitosa: " + cardCodeGenerate);
+                        msgError = string.Empty;
+                        error = msgError;
+                        return 1;
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Logger.Error("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
-                    Logger.Fatal("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
-
-                    error = "Solicitud: " + solicitud + ", Ex: " + ex.Message;
+                    Logger.Error("Error al conectar a SAP: {1}"+ solicitud);
                     return 2;
                 }
-
-                throw new Exception(solicitud + " - Error al instanciar el objeto ConexionSAP");
-
             }
             catch (Exception ex)
             {
                 Logger.Error("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
+                Logger.Fatal("Error al registrar la solicitud {0} en SAP: {1}", solicitud, ex.Message);
+
                 error = "Solicitud: " + solicitud + ", Ex: " + ex.Message;
                 return 2;
             }
