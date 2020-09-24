@@ -350,10 +350,11 @@ namespace MRS
                 string nombreCompleto = null;
 
                 Conexiones.ConexionSAP _oConnection = new Conexiones.ConexionSAP();
+
                 try
                 {
                     _oConnection = new Conexiones.ConexionSAP();
-                    if (_oConnection.ComprobarConexionReconectarSAP(ref msgError))
+                    if (_oConnection.ConectarSAP(ref msgError))
                     {
                         oCompany = _oConnection._oCompany;
                         nombreCompleto = nombre.TrimEnd(' ') + ' ' + apellidoP.TrimEnd(' ') + ' ' + apellidoM.TrimEnd(' ');
@@ -473,10 +474,7 @@ namespace MRS
                     return 2;
                 }
 
-
-                Logger.Info("Solicitud registrada en SAP {0}", solicitud);
-                error = string.Empty;
-                return 1;
+                throw new Exception(solicitud + " - Error al instanciar el objeto ConexionSAP");
 
             }
             catch (Exception ex)

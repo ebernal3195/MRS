@@ -3,7 +3,7 @@
   <CONEXION_SAP ServerNameSAP="192.168.0.9" 
                 TipoBaseSAP="MSSQL2012" 
                 ServidorLicenciasSAP="192.168.0.9" 
-                BaseSAP="PRUEBAS_GDL" 
+                BaseSAP="PABS_ SAP" 
                 UserSAP="sincronizador" 
                 PassSAP="1234" 
                 UserSQL="sa" 
