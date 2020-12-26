@@ -223,15 +223,24 @@ namespace MRS
                         MiSolicitud.Colonia_cobro = ColoniaMunicipioCobro[0].ToUpper();
                         MiSolicitud.Municipio_cobro = ColoniaMunicipioCobro[1].ToUpper();
 
+                        try
+                        {
+                            string rfc = RfcFacil.RfcBuilder.ForNaturalPerson()
+                                                       .WithName(MiSolicitud.Nombre)
+                                                       .WithFirstLastName(MiSolicitud.ApellidoPaterno)
+                                                       .WithSecondLastName(MiSolicitud.ApellidoMaterno)
+                                                       .WithDate(Convert.ToInt32(MiSolicitud.year), Convert.ToInt32(MiSolicitud.mes), Convert.ToInt32(MiSolicitud.dia))
+                                                       .Build().ToString();
 
-                        string rfc = RfcFacil.RfcBuilder.ForNaturalPerson()
-                                                   .WithName(MiSolicitud.Nombre)
-                                                   .WithFirstLastName(MiSolicitud.ApellidoPaterno)
-                                                   .WithSecondLastName(MiSolicitud.ApellidoMaterno)
-                                                   .WithDate(Convert.ToInt32(MiSolicitud.year), Convert.ToInt32(MiSolicitud.mes), Convert.ToInt32(MiSolicitud.dia))
-                                                   .Build().ToString();
+                            MiSolicitud.RFC = rfc;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Error(ex, "Error al generar RFC: " + ex.Message);
+                            Logger.Fatal(ex, "Error al generar RFC: " + ex.Message);
 
-                        MiSolicitud.RFC = rfc;
+                            continue;
+                        }
 
                         // Falta mapear los datos de cobro ???
 
@@ -243,7 +252,8 @@ namespace MRS
             }
             catch (Exception ex)
             {
-                Logger.Error("Error al cargar las solicitudes en una lista: {0}", ex.Message);
+                Logger.Error(ex, "Error al cargar las solicitudes en una lista: " + ex.Message);
+                Logger.Fatal(ex, "Error al cargar las solicitudes en una lista: " + ex.Message);
             }
         }
 
